@@ -15,3 +15,13 @@ services:
     depends_on:
       - web
     restart: always
+
+  # [추가] 자동 업데이트 감시자 Watchtower
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    # 30초마다 체크하고, 업데이트 후 옛날 이미지는 삭제(--cleanup)
+    command: --interval 30 --cleanup
+    restart: always
